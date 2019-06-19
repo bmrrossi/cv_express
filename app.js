@@ -1,12 +1,23 @@
 const express = require("express");
+const path = require("path");
 const port = 3000;
 const app = express();
 
+const CurriculoController = require("./controllers/curriculo-controller");
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 app.get('/', (req, res, next) => {
-    res.send({
+    res.render('index',{
         title: "Meu primeiro servidor express",
         version: "0.0.0"
     });
+});
+
+app.get('/curriculo', (req, res, next) => {
+    const curriculoData = CurriculoController.getData();
+    res.render('curriculo', curriculoData);
 });
 
 app.listen(port, err =>{
