@@ -3,23 +3,32 @@ const path = require("path");
 const port = 3000;
 const app = express();
 
-const CurriculoController = require("./controllers/curriculo-controller");
+const indexRoute = require("./routes/index");
+const curriculoRoute = require("./routes/curriculo");
+
+const createError = require("http-errors");
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.get('/', (req, res, next) => {
-    res.render('index',{
-        title: "Meu primeiro servidor express",
-        version: "0.0.0"
-    });
+// My routes
+app.get("/", indexRoute);
+app.get("/curriculo", curriculoRoute);
+
+app.use((req, res, next) => {
+    next(createError(404));
 });
 
-app.get('/curriculo', (req, res, next) => {
-    const curriculoData = CurriculoController.getData();
-    res.render('curriculo', curriculoData);
+app.use((err, req, res, next) => {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err: {};
+
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 app.listen(port, err =>{
     console.log(`Server is listening on port ${port}`);
-})
+});
