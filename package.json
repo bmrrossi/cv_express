@@ -1,0 +1,27 @@
+{
+  "name": "cv_express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bmrrossi/cv_express.git"
+  },
+  "keywords": [
+    "cv",
+    "node",
+    "express"
+  ],
+  "author": "bmrrossi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bmrrossi/cv_express/issues"
+  },
+  "homepage": "https://github.com/bmrrossi/cv_express#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
